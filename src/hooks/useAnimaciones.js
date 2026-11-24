@@ -5,12 +5,7 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
 
-function reducirMovimiento() {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-// Una sola función para animar TODOS los enlaces internos y los CTA.
-
+// Desplazamiento animado hacia cualquier sección.
 export function desplazarA(destino, actualizarUrl = true) {
   const elemento = document.querySelector(destino);
 
@@ -23,31 +18,19 @@ export function desplazarA(destino, actualizarUrl = true) {
     window.scrollY + elemento.getBoundingClientRect().top - altoMenu - 14,
   );
 
-  const distancia = Math.abs(posicion - window.scrollY);
-
-  // Duración mínima: 3 segundos.
-  // Duración máxima: 6 segundos.
-  const duracion = Math.min(6, Math.max(3, distancia / 45));
-
-  // Detener desplazamientos anteriores.
+  // Detener una animación anterior.
   gsap.killTweensOf(window, "scrollTo");
 
-  if (reducirMovimiento()) {
-    window.scrollTo({
-      top: posicion,
-      behavior: "instant",
-    });
-  } else {
-    gsap.to(window, {
-      duration: duracion,
-      ease: "sine.inOut",
-      scrollTo: {
-        y: posicion,
-        autoKill: true,
-      },
-      overwrite: "auto",
-    });
-  }
+  // Animación forzada, independientemente de las preferencias del sistema.
+  gsap.to(window, {
+    duration: 2,
+    ease: "sine.inOut",
+    scrollTo: {
+      y: posicion,
+      autoKill: false,
+    },
+    overwrite: true,
+  });
 
   if (actualizarUrl && window.location.hash !== destino) {
     window.history.pushState(null, "", destino);
@@ -58,9 +41,11 @@ export function useAnimaciones(referencia) {
   useGSAP(
     () => {
       const raiz = referencia.current;
+      if (!raiz) return;
+
       const medios = gsap.matchMedia();
 
-      // Delegación de eventos: también funciona con los enlaces del menú móvil y el footer.
+      // Navegación animada entre secciones.
       function navegar(evento) {
         if (
           evento.defaultPrevented ||
@@ -69,87 +54,134 @@ export function useAnimaciones(referencia) {
           evento.ctrlKey ||
           evento.shiftKey ||
           evento.altKey
-        )
+        ) {
           return;
+        }
+
         const enlace = evento.target.closest('a[href^="#"]');
         if (!enlace || !raiz.contains(enlace)) return;
+
         const destino = enlace.getAttribute("href");
-        if (!destino || destino === "#" || !document.querySelector(destino))
+
+        if (!destino || destino === "#" || !document.querySelector(destino)) {
           return;
+        }
+
         evento.preventDefault();
-        // El siguiente frame permite cerrar el menú móvil antes de empezar el scroll.
-        requestAnimationFrame(() => desplazarA(destino));
+        desplazarA(destino);
       }
+
       raiz.addEventListener("click", navegar);
 
-      medios.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.from("[data-hero-entrada]", {
-          y: 42,
-          autoAlpha: 0,
-          duration: 1.05,
-          stagger: 0.13,
-          ease: "power3.out",
-          delay: 0.12,
-          clearProps: "transform,opacity,visibility",
-        });
+      // Fondo del Hero: movimiento continuo y cinematográfico.
+      const fondoHero = raiz.querySelector("#inicio img");
 
-        gsap.utils.toArray("[data-revelar]").forEach((elemento) => {
-          gsap.from(elemento, {
-            y: 45,
-            autoAlpha: 0,
-            duration: 1.05,
-            ease: "power3.out",
-            scrollTrigger: { trigger: elemento, start: "top 90%", once: true },
-            clearProps: "transform,opacity,visibility",
-          });
-        });
+      if (fondoHero) {
+        gsap.fromTo(
+          fondoHero,
+          {
+            scale: 1.04,
+            xPercent: -1.5,
+          },
+          {
+            scale: 1.13,
+            xPercent: 1.5,
+            duration: 25,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+          },
+        );
+      }
 
-        gsap.utils.toArray("[data-imagen]").forEach((elemento) => {
-          gsap.from(elemento, {
-            scale: 1.09,
-            duration: 1.5,
-            ease: "power2.out",
-            scrollTrigger: { trigger: elemento, start: "top 90%", once: true },
-            clearProps: "transform",
-          });
-        });
+      // Entrada inicial de textos y formulario.
+      gsap.from(raiz.querySelectorAll("[data-hero-entrada]"), {
+        y: 60,
+        autoAlpha: 0,
+        duration: 1.6,
+        stagger: 0.18,
+        ease: "power3.out",
+        delay: 0.2,
       });
 
-      medios.add(
-        "(min-width: 900px) and (prefers-reduced-motion: no-preference)",
-        () => {
-          gsap.utils.toArray("[data-parallax]").forEach((imagen) => {
+      // Aparición visible de los elementos de las secciones.
+      gsap.utils
+        .toArray(raiz.querySelectorAll("[data-revelar]"))
+        .forEach((elemento) => {
+          gsap.from(elemento, {
+            y: 90,
+            scale: 0.97,
+            autoAlpha: 0,
+            duration: 1.65,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: elemento,
+              start: "top 83%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        });
+
+      // Zoom al mostrar fotografías.
+      gsap.utils
+        .toArray(raiz.querySelectorAll("[data-imagen]"))
+        .forEach((imagen) => {
+          gsap.from(imagen, {
+            scale: 1.15,
+            duration: 2,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: imagen,
+              start: "top 90%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        });
+
+      // Parallax de imágenes en escritorio.
+      medios.add("(min-width: 900px)", () => {
+        gsap.utils
+          .toArray(raiz.querySelectorAll("[data-parallax]"))
+          .forEach((imagen) => {
             gsap.fromTo(
               imagen,
-              { yPercent: -5 },
+              { yPercent: -8 },
               {
-                yPercent: 5,
+                yPercent: 8,
                 ease: "none",
                 scrollTrigger: {
                   trigger: imagen.parentElement,
                   start: "top bottom",
                   end: "bottom top",
-                  scrub: 1.1,
+                  scrub: 1.2,
                 },
               },
             );
           });
-        },
-      );
+      });
 
+      // Indicador de progreso del header.
       const progreso = raiz.querySelector("[data-progreso-scroll]");
+
       if (progreso) {
         ScrollTrigger.create({
           start: 0,
           end: "max",
-          onUpdate: (instancia) =>
-            gsap.set(progreso, { scaleX: instancia.progress }),
+          onUpdate: (instancia) => {
+            gsap.set(progreso, {
+              scaleX: instancia.progress,
+            });
+          },
         });
       }
 
-      // Refrescar las posiciones de ScrollTrigger cuando terminan de cargar las imágenes.
+      // Recalcular posiciones cuando carguen los recursos.
       const actualizar = () => ScrollTrigger.refresh();
-      window.addEventListener("load", actualizar, { once: true });
+
+      window.addEventListener("load", actualizar, {
+        once: true,
+      });
+
       document.fonts?.ready.then(actualizar);
 
       return () => {

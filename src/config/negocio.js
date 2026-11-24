@@ -91,11 +91,6 @@ export const preguntas = [
       "Puedes indicar la modalidad que prefieres al enviar tu solicitud. El negocio confirmará qué opciones están disponibles.",
   },
   {
-    pregunta: "¿Mi cita queda reservada al enviar el formulario?",
-    respuesta:
-      "No. El formulario prepara un mensaje de WhatsApp para solicitar disponibilidad. La cita queda acordada cuando el negocio te confirma.",
-  },
-  {
     pregunta: "¿Tengo que preparar algo antes de mi lectura?",
     respuesta:
       "Puedes llegar con una pregunta específica o simplemente con disposición para conversar. No es necesario tener experiencia previa.",
