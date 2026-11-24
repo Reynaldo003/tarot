@@ -16,11 +16,17 @@ function IconoServicio({ icono, size = 25 }) {
   return <Sun size={size} strokeWidth={1.2} />;
 }
 
+
 export function Hero({ servicioSeleccionado }) {
   return (
-    <section id="inicio" aria-labelledby="titulo-hero" className="relative isolate flex min-h-[850px] scroll-mt-20 flex-col overflow-hidden bg-[#150c10] pt-[90px] text-[#f0e4d2] md:pt-[120px]">
+    <section
+      id="inicio"
+      aria-labelledby="titulo-hero"
+      className="relative isolate flex min-h-[850px] scroll-mt-20 flex-col overflow-hidden bg-[#150c10] pt-[90px] text-[#f0e4d2] md:pt-[120px]"
+    >
+      {/* VIDEO DE FONDO */}
       <div
-        className="pointer-events-none absolute inset-0 -z-20 overflow-hidden"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-20 h-[750px] overflow-hidden lg:inset-0 lg:h-full"
         aria-hidden="true"
       >
         <video
@@ -30,7 +36,7 @@ export function Hero({ servicioSeleccionado }) {
           playsInline
           preload="metadata"
           poster="/images/hero-tarot.webp"
-          className="h-full w-full object-cover object-[35%_center] opacity-80 md:object-center"
+          className="h-full w-full object-cover object-[20%_top] opacity-80 lg:object-center"
         >
           <source
             src="/videos/casa_astral_hero_cinemagrafico.mp4"
@@ -38,23 +44,89 @@ export function Hero({ servicioSeleccionado }) {
           />
         </video>
       </div>
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(0deg,#150c10_0%,transparent_55%),linear-gradient(90deg,rgba(17,9,12,.57),rgba(17,9,12,.36)_45%,rgba(17,9,12,.9))] lg:bg-[linear-gradient(90deg,rgba(16,9,12,.03)_0%,rgba(19,10,15,.44)_35%,rgba(16,10,13,.86)_75%,rgba(16,10,13,.94)),linear-gradient(0deg,#150c10_0%,transparent_35%)]" aria-hidden="true" />
-      <div className="pointer-events-none absolute -left-28 -top-24 -z-10 hidden size-[720px] rounded-full border border-[#d5ab72]/20 shadow-[0_0_0_100px_rgba(199,144,89,.025),0_0_0_170px_rgba(199,144,89,.02)] lg:block" aria-hidden="true" data-parallax />
-      <span className="pointer-events-none absolute left-5 top-[41%] hidden rotate-180 text-xs tracking-[0.33em] text-[#d5ae82] opacity-80 [writing-mode:vertical-rl] xl:block" aria-hidden="true">EL ARTE DE MIRAR HACIA DENTRO — ESTA EN EL PRESENTE</span>
 
-      <div className={`${CONTENEDOR} relative grid flex-1 items-center gap-9 pb-12 pt-12 md:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(340px,600px)] lg:gap-[clamp(24px,3vw,75px)] lg:pl-[clamp(150px,14vw,245px)] lg:pt-8`}>
+      {/* DEGRADADO ADAPTADO A MÓVILES */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(21,12,16,0.08)_0px,rgba(21,12,16,0.15)_250px,rgba(21,12,16,0.75)_520px,#150c10_780px)] lg:bg-[linear-gradient(90deg,rgba(16,9,12,.03)_0%,rgba(19,10,15,.44)_35%,rgba(16,10,13,.86)_75%,rgba(16,10,13,.94)),linear-gradient(0deg,#150c10_0%,transparent_35%)]"
+        aria-hidden="true"
+      />
+
+      {/* DECORACIÓN */}
+      <div
+        className="pointer-events-none absolute -left-28 -top-24 -z-10 hidden size-[720px] rounded-full border border-[#d5ab72]/20 shadow-[0_0_0_100px_rgba(199,144,89,.025),0_0_0_170px_rgba(199,144,89,.02)] lg:block"
+        aria-hidden="true"
+        data-parallax
+      />
+
+      <span className="pointer-events-none absolute left-5 top-[41%] hidden rotate-180 text-xs tracking-[0.33em] text-[#d5ae82] opacity-80 [writing-mode:vertical-rl] xl:block">
+        EL ARTE DE MIRAR HACIA DENTRO — ESTÁ EN EL PRESENTE
+      </span>
+
+      {/* CONTENIDO */}
+      <div
+        className={`${CONTENEDOR} relative grid flex-1 items-center gap-9 pb-12 pt-[320px] sm:pt-[380px] lg:grid-cols-[minmax(0,1fr)_minmax(340px,600px)] lg:gap-[clamp(24px,3vw,75px)] lg:pl-[clamp(150px,14vw,245px)] lg:pt-8`}
+      >
+        {/* TEXTOS */}
         <div className="flex min-h-[410px] flex-col items-start justify-end pb-3 md:min-h-[470px] lg:min-h-0 lg:justify-center">
-          <p data-hero-entrada className="flex items-center gap-3 text-[13px] font-bold tracking-[0.2em] text-[#f2cf9b]"><span className="size-2 rotate-45 bg-[#d5ab72]" />LECTURAS DE TAROT EN CÓRDOBA, VER.</p>
-          <h1 id="titulo-hero" data-hero-entrada className={`${DISPLAY} my-7 text-[clamp(4.7rem,13vw,7.5rem)] font-medium leading-[0.78] tracking-[-0.06em] text-[#f3e3d0] lg:text-[clamp(5rem,6.5vw,8.5rem)]`}>
-            Escucha<br /><em className="font-normal">lo que tu</em><br />intuición<br /><span className="text-[#d5ab72]">susurra.</span>
+          <p
+            data-hero-entrada
+            className="flex items-center gap-3 text-[13px] font-bold tracking-[0.2em] text-[#f2cf9b]"
+          >
+            <span className="size-2 shrink-0 rotate-45 bg-[#d5ab72]" />
+            LECTURAS DE TAROT EN CÓRDOBA, VER.
+          </p>
+
+          <h1
+            id="titulo-hero"
+            data-hero-entrada
+            className={`${DISPLAY} my-7 text-[clamp(4.7rem,13vw,7.5rem)] font-medium leading-[0.78] tracking-[-0.06em] text-[#f3e3d0] lg:text-[clamp(5rem,6.5vw,8.5rem)]`}
+          >
+            Escucha
+            <br />
+            <em className="font-normal">lo que tu</em>
+            <br />
+            intuición
+            <br />
+            <span className="text-[#d5ab72]">susurra.</span>
           </h1>
-          <p data-hero-entrada className="max-w-[390px] text-[15px] leading-[1.85] text-[#e2d2ca]">Un encuentro contigo, una pregunta a la vez. Lecturas de tarot para explorar tu presente con calma, claridad y sensibilidad.</p>
-          <a href="#enfoque" data-hero-entrada className="group mt-7 inline-flex items-center gap-4 border-b border-[#d5ab72]/60 pb-3 text-[11px] font-semibold tracking-[0.18em] text-[#ead1aa] transition-all duration-300 hover:gap-7"><span>DESCUBRE LA EXPERIENCIA</span><ArrowDown size={17} className="transition-transform group-hover:translate-y-1" /></a>
+
+          <p
+            data-hero-entrada
+            className="max-w-[390px] text-[15px] leading-[1.85] text-[#e2d2ca]"
+          >
+            Un encuentro contigo, una pregunta a la vez.
+            Lecturas de tarot para explorar tu presente
+            con calma, claridad y sensibilidad.
+          </p>
+
+          <a
+            href="#enfoque"
+            data-hero-entrada
+            className="group mt-7 inline-flex items-center gap-4 border-b border-[#d5ab72]/60 pb-3 text-[11px] font-semibold tracking-[0.18em] text-[#ead1aa] transition-all duration-300 hover:gap-7"
+          >
+            <span>DESCUBRE LA EXPERIENCIA</span>
+            <ArrowDown
+              size={17}
+              className="transition-transform group-hover:translate-y-1"
+            />
+          </a>
         </div>
-        <div className="mx-auto w-full max-w-[520px] lg:max-w-none"><Reserva servicioSeleccionado={servicioSeleccionado} /></div>
+
+        {/* FORMULARIO */}
+        <div className="mx-auto w-full max-w-[520px] lg:max-w-none">
+          <Reserva servicioSeleccionado={servicioSeleccionado} />
+        </div>
       </div>
-      <div className={`${CONTENEDOR} flex items-center justify-between gap-4 border-t border-[#eed2a6]/25 py-5 text-[11px] tracking-[0.18em] text-[#dbba95]`}>
-        <span><span className="mr-3 text-[#ffddad]">✶</span>UNA NUEVA PERSPECTIVA COMIENZA AQUÍ</span>
+
+      {/* PIE DEL HERO */}
+      <div
+        className={`${CONTENEDOR} flex items-center justify-between gap-4 border-t border-[#eed2a6]/25 py-5 text-[11px] tracking-[0.18em] text-[#dbba95]`}
+      >
+        <span>
+          <span className="mr-3 text-[#ffddad]">✶</span>
+          UNA NUEVA PERSPECTIVA COMIENZA AQUÍ
+        </span>
+
         <FasesLunares className="hidden text-[#d5ab72] sm:flex" />
       </div>
     </section>

@@ -101,7 +101,7 @@ export function PiePagina() {
           <a href="#reservar" className="flex items-center gap-2 text-base text-white hover:text-[#f3c992]"><CalendarDays size={17} />Solicitar una cita <ArrowUpRight size={15} /></a>
         </div>
       </div>
-      <div className={`${CONTENEDOR} flex flex-col justify-between gap-3 pt-6 text-[14px] tracking-wide text-white md:flex-row`}>
+      <div className={`${CONTENEDOR} flex flex-col mb-10 justify-between gap-3 pt-6 text-[14px] tracking-wide text-white md:flex-row`}>
         <span>© {new Date().getFullYear()} {negocio.nombre}.</span>
         <span className="tracking-[0.15em]">ENCUENTRA CLARIDAD EN LA VIDA <span className="text-[#d5ab72]">✦</span></span>
       </div>
