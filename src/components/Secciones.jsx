@@ -1,13 +1,11 @@
 import { useState } from 'react';
-import {
-  ArrowDown, ArrowRight, ArrowUpRight, CalendarDays, ChevronDown, Compass,
-  Heart, Instagram, MapPin, MessageCircle, Moon, Sparkles, Star, Sun, Video,
-} from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, CalendarDays, ChevronDown, Compass, Heart, Instagram, MapPin, MessageCircle, Moon, Sparkles, Star, Sun } from 'lucide-react';
 import { negocio, preguntas, servicios } from '../config/negocio';
-import { EncabezadoSeccion, EnlaceFlecha, FasesLunares, SolAstral } from './Compartidos';
+import { BOTON_PRIMARIO, BOTON_SECUNDARIO, CONTENEDOR, DISPLAY, TITULO, EncabezadoSeccion, EnlaceFlecha, FasesLunares, Kicker, SolAstral } from './Compartidos';
 import { Reserva } from './Reserva';
 
 const fotos = '/images/';
+const TEXTO_CLARO = 'text-[#dac9c2]';
 
 function IconoServicio({ icono, size = 25 }) {
   if (icono === 'corazon') return <Heart size={size} strokeWidth={1.2} />;
@@ -19,27 +17,28 @@ function IconoServicio({ icono, size = 25 }) {
 
 export function Hero({ servicioSeleccionado }) {
   return (
-    <section id="inicio" className="hero seccion-oscura" aria-labelledby="titulo-hero">
-      <div className="hero-fotografia" aria-hidden="true">
-        <img src={`${fotos}hero-tarot.webp`} alt="" width="1672" height="941" fetchPriority="high" />
+    <section id="inicio" aria-labelledby="titulo-hero" className="relative isolate flex min-h-[850px] scroll-mt-20 flex-col overflow-hidden bg-[#150c10] pt-[90px] text-[#f0e4d2] md:pt-[120px]">
+      <div className="pointer-events-none absolute inset-0 -z-20 overflow-hidden" aria-hidden="true">
+        <img src={`${fotos}hero-tarot.webp`} alt="" width="1672" height="941" fetchPriority="high" className="h-full w-full object-cover object-[35%_center] opacity-80 md:object-center" />
       </div>
-      <div className="hero-textura" aria-hidden="true" />
-      <div className="hero-halo" aria-hidden="true" />
-      <span className="hero-vertical" aria-hidden="true">EL ARTE DE MIRAR HACIA DENTRO — EST. EN EL PRESENTE</span>
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(0deg,#150c10_0%,transparent_55%),linear-gradient(90deg,rgba(17,9,12,.57),rgba(17,9,12,.36)_45%,rgba(17,9,12,.9))] lg:bg-[linear-gradient(90deg,rgba(16,9,12,.03)_0%,rgba(19,10,15,.44)_35%,rgba(16,10,13,.86)_75%,rgba(16,10,13,.94)),linear-gradient(0deg,#150c10_0%,transparent_35%)]" aria-hidden="true" />
+      <div className="pointer-events-none absolute -left-28 -top-24 -z-10 hidden size-[720px] rounded-full border border-[#d5ab72]/20 shadow-[0_0_0_100px_rgba(199,144,89,.025),0_0_0_170px_rgba(199,144,89,.02)] lg:block" aria-hidden="true" data-parallax />
+      <span className="pointer-events-none absolute left-5 top-[41%] hidden rotate-180 text-xs tracking-[0.33em] text-[#d5ae82] opacity-80 [writing-mode:vertical-rl] xl:block" aria-hidden="true">EL ARTE DE MIRAR HACIA DENTRO — EST. EN EL PRESENTE</span>
 
-      <div className="contenedor hero-contenido">
-        <div className="hero-titulares">
-          <div className="hero-subtitulo" data-hero-entrada><span className="punto-dorado" />LECTURAS DE TAROT EN CÓRDOBA, VER.</div>
-          <h1 id="titulo-hero" data-hero-entrada>
-            Escucha<br />
-            <em>lo que tu</em><br />
-            intuición<br />
-            <span>susurra.</span>
+      <div className={`${CONTENEDOR} relative grid flex-1 items-center gap-9 pb-12 pt-12 md:gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(340px,410px)] lg:gap-[clamp(24px,3vw,75px)] lg:pl-[clamp(150px,14vw,245px)] lg:pt-8`}>
+        <div className="flex min-h-[410px] flex-col items-start justify-end pb-3 md:min-h-[470px] lg:min-h-0 lg:justify-center">
+          <p data-hero-entrada className="flex items-center gap-3 text-[11px] font-bold tracking-[0.2em] text-[#f2cf9b]"><span className="size-2 rotate-45 bg-[#d5ab72]" />LECTURAS DE TAROT EN CÓRDOBA, VER.</p>
+          <h1 id="titulo-hero" data-hero-entrada className={`${DISPLAY} my-7 text-[clamp(4.7rem,13vw,7.5rem)] font-medium leading-[0.78] tracking-[-0.06em] text-[#f3e3d0] lg:text-[clamp(5rem,6.5vw,8.5rem)]`}>
+            Escucha<br /><em className="font-normal">lo que tu</em><br />intuición<br /><span className="text-[#d5ab72]">susurra.</span>
           </h1>
-          <p data-hero-entrada>Un encuentro contigo, una pregunta a la vez. Lecturas de tarot para explorar tu presente con calma, claridad y sensibilidad.</p>
-          <a href="#enfoque" className="hero-descubrir" data-hero-entrada><span>DESCUBRE LA EXPERIENCIA</span><ArrowDown size={15} /></a>
+          <p data-hero-entrada className="max-w-[390px] text-[13px] leading-[1.85] text-[#e2d2ca]">Un encuentro contigo, una pregunta a la vez. Lecturas de tarot para explorar tu presente con calma, claridad y sensibilidad.</p>
+          <a href="#enfoque" data-hero-entrada className="group mt-7 inline-flex items-center gap-4 border-b border-[#d5ab72]/60 pb-3 text-[11px] font-semibold tracking-[0.18em] text-[#ead1aa] transition-all duration-300 hover:gap-7"><span>DESCUBRE LA EXPERIENCIA</span><ArrowDown size={17} className="transition-transform group-hover:translate-y-1" /></a>
         </div>
-        <div className="hero-formulario"><Reserva servicioSeleccionado={servicioSeleccionado} /></div>
+        <div className="mx-auto w-full max-w-[520px] lg:max-w-none"><Reserva servicioSeleccionado={servicioSeleccionado} /></div>
+      </div>
+      <div className={`${CONTENEDOR} flex items-center justify-between gap-4 border-t border-[#eed2a6]/25 py-5 text-[11px] tracking-[0.18em] text-[#dbba95]`}>
+        <span><span className="mr-3 text-[#ffddad]">✶</span>UNA NUEVA PERSPECTIVA COMIENZA AQUÍ</span>
+        <FasesLunares className="hidden text-[#d5ab72] sm:flex" />
       </div>
     </section>
   );
@@ -47,26 +46,28 @@ export function Hero({ servicioSeleccionado }) {
 
 export function Enfoque() {
   return (
-    <section id="enfoque" className="seccion-enfoque seccion-papel" aria-labelledby="titulo-enfoque">
-      <div className="contenedor enfoque-cuadricula">
-        <div className="enfoque-imagen" data-revelar>
-          <img src={`${fotos}altar-velas.webp`} width="435" height="261" loading="lazy" decoding="async" alt="Altar conceptual con velas encendidas, esfera de cristal y cartas de tarot" />
-          <span className="marco-circular" aria-hidden="true" />
-          <small>EL RITUAL DE DETENERSE</small>
+    <section id="enfoque" aria-labelledby="titulo-enfoque" className="relative scroll-mt-16 overflow-hidden bg-[#f0e4d2] py-20 text-[#342323] md:py-28">
+      <div className={`${CONTENEDOR} relative grid items-center gap-12 md:grid-cols-[43%_57%] md:gap-0`}>
+        <div className="relative w-[86%] max-w-[550px] aspect-[4/4.1] md:w-[88%]" data-revelar>
+          <div className="h-full w-full overflow-hidden [clip-path:polygon(0_0,100%_0,100%_86%,88%_100%,0_100%)]">
+            <img src={`${fotos}altar-velas.webp`} width="435" height="261" loading="lazy" decoding="async" alt="Altar conceptual con velas encendidas y cartas de tarot" data-imagen className="h-full w-full object-cover saturate-[.8] transition-transform duration-700 hover:scale-105" />
+          </div>
+          <span className="pointer-events-none absolute -right-7 -top-7 size-[145px] rounded-full border border-[#d3b586]/70 md:size-[230px]" aria-hidden="true" />
+          <small className="absolute bottom-5 left-5 text-[11px] tracking-[0.2em] text-[#fff1db]">EL RITUAL DE DETENERSE</small>
         </div>
-        <div className="enfoque-contenido">
-          <div className="kicker kicker-oscuro" data-revelar><span /> NUESTRO ENFOQUE</div>
-          <h2 id="titulo-enfoque" className="titulo-grande" data-revelar>Más que una lectura, <em>un espacio para escucharte.</em></h2>
-          <div className="enfoque-cuerpo" data-revelar>
-            <span className="enfoque-estrella" aria-hidden="true">✳</span>
-            <div>
-              <p>A veces, lo que necesitamos no es una respuesta inmediata. Es una nueva manera de mirar lo que estamos viviendo.</p>
-              <p>En Casa Astral, el tarot se presenta como una experiencia simbólica de introspección, conversación y conexión con tu propia intuición.</p>
+        <div className="relative md:pr-[8%]" data-revelar>
+          <Kicker oscuro>NUESTRO ENFOQUE</Kicker>
+          <h2 id="titulo-enfoque" className={`${TITULO} max-w-[690px]`}>Más que una lectura, <em className="font-normal">un espacio para escucharte.</em></h2>
+          <div className="mt-10 grid gap-4 border-t border-[#bd9f83] pt-6 md:grid-cols-[75px_1fr] md:gap-7">
+            <span className="text-5xl font-normal text-[#927255]" aria-hidden="true">✳</span>
+            <div className="max-w-[500px]">
+              <p className="mb-3 text-sm leading-[1.9] text-[#5f4b43]">A veces, lo que necesitamos no es una respuesta inmediata. Es una nueva manera de mirar lo que estamos viviendo.</p>
+              <p className="mb-3 text-sm leading-[1.9] text-[#5f4b43]">En Casa Astral, el tarot se presenta como una experiencia simbólica de introspección, conversación y conexión con tu propia intuición.</p>
               <EnlaceFlecha href="#proceso" claro>Conoce la experiencia</EnlaceFlecha>
             </div>
           </div>
         </div>
-        <div className="enfoque-sol" aria-hidden="true"><SolAstral /></div>
+        <SolAstral className="pointer-events-none absolute -bottom-20 -right-8 hidden scale-[2.4] text-[#a78c71]/30 lg:block" />
       </div>
     </section>
   );
@@ -77,40 +78,38 @@ export function Servicios({ onElegirServicio }) {
   const seleccionado = servicios.find((servicio) => servicio.id === activo) || servicios[0];
 
   return (
-    <section id="lecturas" className="seccion-servicios seccion-oscura" aria-labelledby="titulo-lecturas">
-      <div className="contenedor">
-        <div className="servicios-cabecera">
-          <div data-revelar>
-            <div className="kicker"><span /> CADA PREGUNTA ABRE UN CAMINO</div>
-            <h2 id="titulo-lecturas" className="titulo-seccion">Una lectura para <em>cada momento.</em></h2>
-          </div>
-          <p data-revelar>No hay dos historias iguales. Explora las experiencias y elige aquella que resuena contigo.</p>
+    <section id="lecturas" aria-labelledby="titulo-lecturas" className="relative scroll-mt-16 overflow-hidden bg-[radial-gradient(ellipse_at_83%_15%,#3b202c,transparent_52%)] bg-[#21121b] py-20 text-[#f0e4d2] md:py-28">
+      <span className={`${DISPLAY} pointer-events-none absolute -right-3 top-0 text-[280px] leading-none text-[#d7a577]/10`} aria-hidden="true">✧</span>
+      <div className={CONTENEDOR}>
+        <div className="relative mb-12 grid items-end gap-5 lg:grid-cols-[1.45fr_.55fr] lg:gap-10">
+          <div data-revelar><Kicker>CADA PREGUNTA ABRE UN CAMINO</Kicker><h2 id="titulo-lecturas" className={`${TITULO} max-w-[750px]`}>Una lectura para <em className="font-normal">cada momento.</em></h2></div>
+          <p data-revelar className="mb-3 max-w-[430px] text-[13px] leading-7 text-[#cdbab7]">No hay dos historias iguales. Explora las experiencias y elige aquella que resuena contigo.</p>
         </div>
-        <div className="servicios-composicion">
-          <div className="servicios-lista" aria-label="Tipos de lectura">
+        <div className="relative grid items-start gap-9 lg:grid-cols-[1.15fr_.85fr] lg:gap-[clamp(30px,5vw,90px)]">
+          <div className="border-t border-[#e5bc95]/40" aria-label="Tipos de lectura" data-revelar>
             {servicios.map((servicio, indice) => (
-              <button type="button" className={`servicio-fila ${activo === servicio.id ? 'servicio-fila-activa' : ''}`} onClick={() => setActivo(servicio.id)} key={servicio.id} aria-pressed={activo === servicio.id}>
-                <span className="servicio-numero">0{indice + 1}</span>
-                <span className="servicio-nombre">{servicio.titulo}</span>
-                <span className="servicio-etiqueta">{servicio.etiqueta}</span>
-                <span className="servicio-icono"><IconoServicio icono={servicio.icono} size={19} /></span>
+              <button type="button" key={servicio.id} onClick={() => setActivo(servicio.id)} aria-pressed={activo === servicio.id}
+                className={`group grid w-full grid-cols-[30px_minmax(0,1fr)_26px] items-center gap-2 border-b border-[#e5bc95]/25 px-1 py-5 text-left transition-[background,color,padding] duration-300 lg:grid-cols-[45px_minmax(0,1fr)_95px_26px] lg:gap-3 ${activo === servicio.id ? 'bg-[#d7ac74]/10 pl-4 text-[#f4cf99]' : 'text-[#e9d8cb] hover:bg-[#d7ac74]/5 hover:pl-4 hover:text-[#f4cf99]'}`}>
+                <span className="text-xs tracking-widest text-[#b18b72]">0{indice + 1}</span>
+                <span className={`${DISPLAY} text-[clamp(25px,3vw,41px)] leading-none font-medium`}>{servicio.titulo}</span>
+                <span className="hidden text-right text-xs text-[#bda6a1] lg:block">{servicio.etiqueta}</span>
+                <span className="text-[#d3ae83] transition-transform duration-300 group-hover:rotate-12"><IconoServicio icono={servicio.icono} size={20} /></span>
               </button>
             ))}
           </div>
-          <aside className="servicio-destacado" aria-live="polite">
-            <div className="servicio-destacado-foto">
-              <img src={`${fotos}mazo-tarot.webp`} width="313" height="242" loading="lazy" decoding="async" alt="Primer plano de una carta ilustrada de tarot junto a una vela" />
-            </div>
-            <div className="servicio-destacado-texto">
-              <span className="mini-etiqueta">EXPERIENCIA SELECCIONADA</span>
-              <div className="servicio-icono-grande"><IconoServicio icono={seleccionado.icono} size={38} /></div>
-              <h3>{seleccionado.titulo}</h3>
-              <p>{seleccionado.descripcion}</p>
-              <p className="servicio-nota">{seleccionado.detalle}</p>
-              <button type="button" className="enlace-flecha boton-texto" onClick={() => onElegirServicio(seleccionado.id)}>Solicitar esta lectura <ArrowUpRight size={18} /></button>
+          <aside data-revelar className="relative self-start border border-[#d6ac7a]/40 bg-[#291723]" aria-live="polite">
+            <div className="h-[180px] overflow-hidden sm:h-[245px]"><img src={`${fotos}mazo-tarot.webp`} width="313" height="242" loading="lazy" decoding="async" alt="Primer plano de una carta ilustrada de tarot junto a una vela" data-imagen className="h-full w-full object-cover brightness-[.83] saturate-[.76] transition-transform duration-700 hover:scale-105" /></div>
+            <div className="px-6 py-7 sm:px-9 sm:py-8">
+              <span className="text-[11px] font-bold tracking-[0.18em] text-[#d8ae80]">EXPERIENCIA SELECCIONADA</span>
+              <span className="float-right text-[#d5ab72]"><IconoServicio icono={seleccionado.icono} size={38} /></span>
+              <h3 className={`${DISPLAY} my-4 text-[43px] font-medium leading-none`}>{seleccionado.titulo}</h3>
+              <p className={`text-xs leading-7 ${TEXTO_CLARO}`}>{seleccionado.descripcion}</p>
+              <p className="mt-3 text-xs italic leading-6 text-[#ad9992]">{seleccionado.detalle}</p>
+              <button type="button" onClick={() => onElegirServicio(seleccionado.id)} className="group mt-5 inline-flex items-center gap-5 border-b border-[#c3a27c] py-3 text-xs font-semibold text-[#e3bf8e] transition-all duration-300 hover:gap-8">Solicitar esta lectura <ArrowUpRight size={18} className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" /></button>
             </div>
           </aside>
         </div>
+        <p className="mt-7 text-[11px] tracking-wide text-[#ad9799]"><span className="mr-2 text-[#d5ab72]">✦</span>Las lecturas se solicitan según la disponibilidad que confirme el negocio.</p>
       </div>
     </section>
   );
@@ -124,20 +123,17 @@ export function Proceso() {
     { titulo: 'Llévate tu reflexión', descripcion: 'Quédate con aquello que te ayude a dar tu siguiente paso.' },
   ];
   return (
-    <section id="proceso" className="seccion-proceso seccion-papel" aria-labelledby="titulo-proceso">
-      <div className="contenedor">
-        <div className="proceso-cabecera">
-          <EncabezadoSeccion kicker="EL RECORRIDO" claro titulo={<span id="titulo-proceso">Así comienza <em>tu camino.</em></span>} />
-          <FasesLunares />
-        </div>
-        <ol className="proceso-pasos">
+    <section id="proceso" aria-labelledby="titulo-proceso" className="scroll-mt-16 bg-[#eaddc9] py-20 text-[#342323] md:py-28">
+      <div className={CONTENEDOR}>
+        <div className="mb-12 flex items-end justify-between gap-6"><EncabezadoSeccion kicker="EL RECORRIDO" claro titulo={<span id="titulo-proceso">Así comienza <em className="font-normal">tu camino.</em></span>} /><FasesLunares className="hidden text-[#8e6d5f] md:flex" /></div>
+        <ol className="grid grid-cols-2 gap-x-6 gap-y-9 border-t border-[#815d48]/50 md:grid-cols-4 md:gap-x-8">
           {pasos.map((paso, indice) => (
-            <li key={paso.titulo} data-revelar>
-              <div className="paso-numero">0{indice + 1}</div>
-              <div className="paso-linea" aria-hidden="true" />
-              <h3>{paso.titulo}</h3>
-              <p>{paso.descripcion}</p>
-              {indice < 3 && <ArrowRight className="paso-flecha" size={19} aria-hidden="true" />}
+            <li key={paso.titulo} data-revelar className="relative min-h-[175px] pt-6">
+              <div className={`${DISPLAY} mb-7 grid size-11 place-items-center rounded-full border border-[#724d47]/60 text-2xl text-[#744451]`}>0{indice + 1}</div>
+              <span className="absolute left-[58px] right-4 top-[46px] h-px bg-[#be9f8c]" aria-hidden="true" />
+              <h3 className={`${DISPLAY} mb-3 text-[26px] font-semibold tracking-tight`}>{paso.titulo}</h3>
+              <p className="max-w-[270px] text-xs leading-6 text-[#70574a]">{paso.descripcion}</p>
+              {indice < 3 && <ArrowRight size={18} aria-hidden="true" className="absolute right-5 top-[140px] hidden text-[#976b50] md:block" />}
             </li>
           ))}
         </ol>
@@ -148,48 +144,50 @@ export function Proceso() {
 
 export function SobreMi() {
   return (
-    <section id="sobre-mi" className="seccion-sobre-mi seccion-oscura" aria-labelledby="titulo-sobre-mi">
-      <div className="sobre-mi-imagen">
-        <img src={`${fotos}retrato-guia.webp`} alt="Retrato editorial conceptual para ilustrar la presentación de quien ofrece las lecturas; sustituir por fotografía real" loading="lazy" decoding="async" width="850" height="909" data-parallax />
-        <span className="foto-etiqueta">FOTOGRAFÍA CONCEPTUAL</span>
+    <section id="sobre-mi" aria-labelledby="titulo-sobre-mi" className="relative grid scroll-mt-16 overflow-hidden bg-[radial-gradient(ellipse_at_95%_50%,#432432,#20131b_65%)] text-[#f0e4d2] md:grid-cols-[44%_56%]">
+      <div className="relative h-[440px] overflow-hidden md:min-h-[670px] md:h-auto">
+        <img src={`${fotos}retrato-guia.webp`} alt="Retrato editorial conceptual de la lectora; sustituir por fotografía real" loading="lazy" decoding="async" width="850" height="909" data-parallax className="h-full w-full object-cover object-[center_40%] brightness-[.8] saturate-[.78] md:h-[112%] md:object-[center_36%]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#20131b] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-[#20131b]/80" aria-hidden="true" />
+        <span className="absolute bottom-8 left-7 border-b border-[#e8c79e]/60 pb-2 text-[11px] tracking-[0.22em] text-[#f2ddc4]">FOTOGRAFÍA CONCEPTUAL</span>
       </div>
-      <div className="sobre-mi-contenido" data-revelar>
-        <div className="kicker"><span /> DETRÁS DE LAS CARTAS</div>
-        <h2 id="titulo-sobre-mi" className="titulo-seccion">Una voz que <em>te acompaña.</em></h2>
-        <div className="sobre-mi-texto">
-          <p>Este espacio estará dedicado a presentar a la persona que realiza las lecturas: su historia, su manera de trabajar y lo que hace especial cada encuentro.</p>
-          <p>La confianza comienza al conocernos. Por eso, aquí compartiremos su nombre, fotografía real y una presentación auténtica cuando el negocio proporcione esa información.</p>
-          <span className="etiqueta-provisional">BIOGRAFÍA PENDIENTE DE PERSONALIZAR</span>
+      <div data-revelar className="relative z-10 self-center px-5 pb-20 pt-8 md:max-w-[750px] md:px-[11%] md:py-24">
+        <Kicker>DETRÁS DE LAS CARTAS</Kicker>
+        <h2 id="titulo-sobre-mi" className={`${TITULO} max-w-[650px]`}>Una voz que <em className="font-normal">te acompaña.</em></h2>
+        <div className="mt-10 border-l border-[#cfa273]/55 pl-6">
+          <p className="mb-4 text-[13px] leading-[1.95] text-[#d3bfc2]">Este espacio estará dedicado a presentar a la persona que realiza las lecturas: su historia, su manera de trabajar y lo que hace especial cada encuentro.</p>
+          <p className="mb-4 text-[13px] leading-[1.95] text-[#d3bfc2]">La confianza comienza al conocernos. Aquí compartiremos su nombre, fotografía real y una presentación auténtica cuando el negocio proporcione esa información.</p>
+          <span className="my-2 inline-block border border-[#d8ad79]/45 px-3 py-2 text-[11px] tracking-[0.13em] text-[#cba274]">BIOGRAFÍA PENDIENTE DE PERSONALIZAR</span>
         </div>
         <EnlaceFlecha href="#espacio">Descubre el espacio</EnlaceFlecha>
       </div>
-      <div className="sobre-mi-dibujo" aria-hidden="true">☽</div>
+      <span className="pointer-events-none absolute -bottom-20 right-[5%] hidden font-serif text-[370px] leading-none text-[#d8aa74]/[.065] lg:block" aria-hidden="true">☽</span>
     </section>
   );
 }
 
 export function Espacio() {
   return (
-    <section id="espacio" className="seccion-espacio seccion-papel" aria-labelledby="titulo-espacio">
-      <div className="contenedor espacio-composicion">
-        <div className="espacio-encabezado" data-revelar>
-          <div className="kicker kicker-oscuro"><span /> UN RINCÓN PARA TI</div>
-          <h2 id="titulo-espacio" className="titulo-seccion">La magia de <em>estar presente.</em></h2>
-          <p>Texturas, luz tenue y pequeños rituales para imaginar una experiencia que invita a bajar el ritmo.</p>
-          <small>Imágenes conceptuales. Fotografías reales del local pendientes.</small>
+    <section id="espacio" aria-labelledby="titulo-espacio" className="scroll-mt-16 bg-[#f0e4d4] py-20 text-[#342323] md:py-28">
+      <div className={`${CONTENEDOR} grid grid-cols-2 items-stretch gap-3 lg:grid-cols-[29%_42%_29%] lg:gap-4`}>
+        <div className="col-span-2 self-center pb-7 lg:col-span-1 lg:pr-10" data-revelar>
+          <Kicker oscuro>UN RINCÓN PARA TI</Kicker>
+          <h2 id="titulo-espacio" className={`${DISPLAY} text-[clamp(3.25rem,5vw,5.4rem)] font-medium leading-[.92] tracking-[-.035em]`}>La magia de <em className="font-normal">estar presente.</em></h2>
+          <p className="my-6 text-[13px] leading-7 text-[#5c493f]">Texturas, luz tenue y pequeños rituales para imaginar una experiencia que invita a bajar el ritmo.</p>
+          <small className="block text-[11px] leading-6 text-[#90705a]">Imágenes conceptuales. Fotografías reales del local pendientes.</small>
         </div>
-        <figure className="espacio-foto espacio-foto-principal" data-revelar>
-          <img src={`${fotos}altar-velas.webp`} alt="Composición editorial de velas y una esfera de cristal en un altar" width="435" height="261" loading="lazy" decoding="async" />
-          <figcaption>01 / EL AMBIENTE</figcaption>
+        <figure className="group relative m-0 min-h-[290px] overflow-hidden bg-[#2a181e] sm:min-h-[350px] lg:min-h-[510px]" data-revelar>
+          <img src={`${fotos}altar-velas.webp`} alt="Composición editorial de velas y una esfera de cristal en un altar" width="435" height="261" loading="lazy" decoding="async" data-imagen className="absolute inset-0 h-full w-full object-cover saturate-[.75] transition-transform duration-700 group-hover:scale-[1.06]" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 to-transparent" />
+          <figcaption className="absolute bottom-5 left-4 z-10 text-[11px] tracking-[0.18em] text-[#fff1d7]">01 / EL AMBIENTE</figcaption>
         </figure>
-        <div className="espacio-columna-fotos">
-          <figure className="espacio-foto" data-revelar>
-            <img src={`${fotos}ritual-cartas.webp`} alt="Cartas ilustradas de tarot sobre una mesa con velas y cristales" width="535" height="154" loading="lazy" decoding="async" />
-            <figcaption>02 / LOS SÍMBOLOS</figcaption>
+        <div className="grid grid-rows-2 gap-3 lg:gap-4">
+          <figure className="group relative m-0 min-h-[140px] overflow-hidden bg-[#2a181e] sm:min-h-[170px]" data-revelar>
+            <img src={`${fotos}ritual-cartas.webp`} alt="Cartas ilustradas de tarot sobre una mesa con velas y cristales" width="535" height="154" loading="lazy" decoding="async" data-imagen className="absolute inset-0 h-full w-full object-cover saturate-[.75] transition-transform duration-700 group-hover:scale-[1.06]" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/60 to-transparent" /><figcaption className="absolute bottom-4 left-3 z-10 text-[11px] tracking-wider text-[#fff1d7]">02 / LOS SÍMBOLOS</figcaption>
           </figure>
-          <figure className="espacio-foto" data-revelar>
-            <img src={`${fotos}mazo-tarot.webp`} alt="Detalle de una carta de tarot junto a una llama" width="313" height="242" loading="lazy" decoding="async" />
-            <figcaption>03 / LOS DETALLES</figcaption>
+          <figure className="group relative m-0 min-h-[140px] overflow-hidden bg-[#2a181e] sm:min-h-[170px]" data-revelar>
+            <img src={`${fotos}mazo-tarot.webp`} alt="Detalle de una carta de tarot junto a una llama" width="313" height="242" loading="lazy" decoding="async" data-imagen className="absolute inset-0 h-full w-full object-cover saturate-[.75] transition-transform duration-700 group-hover:scale-[1.06]" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/60 to-transparent" /><figcaption className="absolute bottom-4 left-3 z-10 text-[11px] tracking-wider text-[#fff1d7]">03 / LOS DETALLES</figcaption>
           </figure>
         </div>
       </div>
@@ -199,18 +197,18 @@ export function Espacio() {
 
 export function PreguntasFrecuentes() {
   return (
-    <section id="preguntas" className="seccion-preguntas seccion-oscura" aria-labelledby="titulo-preguntas">
-      <div className="contenedor preguntas-cuadricula">
-        <div className="preguntas-titulares" data-revelar>
-          <div className="kicker"><span /> ANTES DE TU ENCUENTRO</div>
-          <h2 id="titulo-preguntas" className="titulo-seccion">Preguntas que <em>merecen respuestas.</em></h2>
-          <span className="preguntas-ilustracion" aria-hidden="true"><img src={`${fotos}luna-ritual.webp`} width="253" height="174" loading="lazy" alt="" /></span>
+    <section id="preguntas" aria-labelledby="titulo-preguntas" className="scroll-mt-16 bg-[radial-gradient(ellipse_at_5%_90%,#412531,transparent_45%)] bg-[#1a1119] py-20 text-[#f0e4d2] md:py-28">
+      <div className={`${CONTENEDOR} grid gap-9 lg:grid-cols-[38%_62%] lg:gap-12`}>
+        <div data-revelar><Kicker>ANTES DE TU ENCUENTRO</Kicker><h2 id="titulo-preguntas" className={`${TITULO} max-w-[450px]`}>Preguntas que <em className="font-normal">merecen respuestas.</em></h2>
+          <div className="mt-10 hidden pl-10 opacity-40 lg:block" aria-hidden="true"><img src={`${fotos}luna-ritual.webp`} width="253" height="174" loading="lazy" alt="" className="h-[185px] w-[245px] rounded-t-full border border-[#cba470]/50 object-cover" /></div>
         </div>
-        <div className="preguntas-lista" data-revelar>
+        <div data-revelar className="lg:pr-12">
           {preguntas.map((elemento, indice) => (
-            <details key={elemento.pregunta} open={indice === 0}>
-              <summary><span>{elemento.pregunta}</span><ChevronDown size={19} aria-hidden="true" /></summary>
-              <p>{elemento.respuesta}</p>
+            <details key={elemento.pregunta} open={indice === 0} className="group border-b border-[#dbb18a]/30 first:border-t">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-5 text-sm leading-6 text-[#f1dfd0] [&::-webkit-details-marker]:hidden">
+                <span>{elemento.pregunta}</span><ChevronDown size={20} aria-hidden="true" className="shrink-0 text-[#d5ab72] transition-transform duration-300 group-open:rotate-180" />
+              </summary>
+              <p className="max-w-[550px] pb-6 pr-8 text-xs leading-7 text-[#c3aaac]">{elemento.respuesta}</p>
             </details>
           ))}
         </div>
@@ -219,117 +217,53 @@ export function PreguntasFrecuentes() {
   );
 }
 
-
 export function Ubicacion() {
   const googleMaps = negocio.mapsUrl;
   const mapaEmbed = negocio.mapsEmbedUrl;
 
   return (
-    <section
-      id="ubicacion"
-      className="seccion-ubicacion seccion-papel"
-      aria-labelledby="titulo-ubicacion"
-    >
-      <div className="contenedor ubicacion-cuadricula">
-
-        {/* Información del negocio */}
-        <div className="ubicacion-textos" data-revelar>
-          <div className="kicker kicker-oscuro">
-            <span />
-            NOS ENCONTRAMOS EN
+    <section id="ubicacion" aria-labelledby="titulo-ubicacion" className="scroll-mt-16 bg-[#eaddc9] py-20 text-[#342323] md:py-28">
+      <div className={`${CONTENEDOR} grid items-center gap-10 lg:grid-cols-[46%_minmax(0,54%)] lg:gap-12`}>
+        <div data-revelar className="lg:pr-8">
+          <Kicker oscuro>NOS ENCONTRAMOS EN</Kicker>
+          <h2 id="titulo-ubicacion" className={`${TITULO} max-w-[580px]`}>Córdoba, <em className="font-normal">Veracruz.</em></h2>
+          <p className="my-7 max-w-[470px] text-[13px] leading-7 text-[#695448]">Visítanos y descubre un espacio pensado para la tranquilidad, la conexión y la introspección.</p>
+          <div className="mb-6 grid gap-5">
+            <div className="grid grid-cols-[30px_1fr] items-start gap-2 text-xs text-[#674e43]"><MapPin size={21} className="text-[#895c4b]" /><span><strong className="mb-1 block text-[11px] tracking-[0.13em] text-[#48312d]">DIRECCIÓN</strong>{negocio.direccion || 'Dirección por confirmar'}</span></div>
+            <div className="grid grid-cols-[30px_1fr] items-start gap-2 text-xs text-[#674e43]"><Compass size={21} className="text-[#895c4b]" /><span><strong className="mb-1 block text-[11px] tracking-[0.13em] text-[#48312d]">REFERENCIAS</strong>{negocio.referencia || 'Referencias por confirmar'}</span></div>
+            <div className="grid grid-cols-[30px_1fr] items-start gap-2 text-xs text-[#674e43]"><CalendarDays size={21} className="text-[#895c4b]" /><span><strong className="mb-1 block text-[11px] tracking-[0.13em] text-[#48312d]">HORARIOS</strong>{negocio.horarios || 'Horarios por confirmar'}</span></div>
           </div>
-
-          <h2 id="titulo-ubicacion" className="titulo-seccion">
-            Córdoba, <em>Veracruz.</em>
-          </h2>
-
-          <p>
-            Visítanos y descubre un espacio pensado para
-            la tranquilidad, la conexión y la introspección.
-          </p>
-
-          <div className="ubicacion-datos">
-            <div>
-              <MapPin size={21} />
-              <span>
-                <strong>DIRECCIÓN</strong>
-                {negocio.direccion || "Dirección por confirmar"}
-              </span>
-            </div>
-
-            <div>
-              <Compass size={21} />
-              <span>
-                <strong>REFERENCIAS</strong>
-                {negocio.referencia || "Referencias por confirmar"}
-              </span>
-            </div>
-
-            <div>
-              <CalendarDays size={21} />
-              <span>
-                <strong>HORARIOS</strong>
-                {negocio.horarios || "Horarios por confirmar"}
-              </span>
-            </div>
-          </div>
-
-          {googleMaps && (
-            <a
-              href={googleMaps}
-              className="enlace-flecha enlace-flecha-claro"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Cómo llegar en Google Maps
-              <ArrowUpRight size={18} />
-            </a>
-          )}
+          {googleMaps && <a href={googleMaps} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-between gap-6 border-b border-[#9b7450] py-3 text-xs font-semibold text-[#64412d] transition-all hover:gap-10">Cómo llegar en Google Maps <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></a>}
         </div>
-
-        {/* Google Maps */}
-        <div className="mapa-google" data-revelar>
+        <div data-revelar className="relative h-[320px] w-full min-w-0 overflow-hidden border border-[#62402e]/20 bg-[#d8c8b5] sm:h-[400px] lg:h-[460px]">
           {mapaEmbed ? (
-            <iframe
-              src={mapaEmbed}
-              title="Ubicación del negocio en Córdoba, Veracruz"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
+            <iframe src={mapaEmbed} title="Ubicación del negocio en Córdoba, Veracruz" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen className="block h-full w-full border-0" />
           ) : (
-            <div className="mapa-sin-configurar">
-              <MapPin size={36} />
-              <p>Mapa pendiente de configurar</p>
-            </div>
+            <div className="flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center text-[#765548]"><MapPin size={36} /><p className="text-sm">Mapa pendiente de configurar</p></div>
           )}
         </div>
-
       </div>
     </section>
   );
 }
 
-
-
 export function Contacto() {
-  const numero = negocio.whatsapp.replace(/\D/g, '');
+  const numero = (negocio.whatsapp || '').replace(/\D/g, '');
   const whatsappUrl = numero ? `https://wa.me/${numero}` : '#reservar';
-
   return (
-    <section id="contacto" className="seccion-contacto seccion-oscura" aria-labelledby="titulo-contacto">
-      <div className="contacto-resplandor" aria-hidden="true" />
-      <div className="contenedor contacto-interior">
-        <div className="contacto-marca"><Moon size={27} strokeWidth={1.1} /><span>LO QUE BUSCAS PUEDE COMENZAR CON UNA CONVERSACIÓN</span></div>
-        <h2 id="titulo-contacto" data-revelar>Hay encuentros que <em>iluminan el camino.</em></h2>
-        <p data-revelar>Regálate un momento para mirar hacia dentro. Tu próxima lectura comienza aquí.</p>
-        <div className="contacto-botones" data-revelar>
-          <a className="boton-primario" href="#reservar"><CalendarDays size={19} /> Solicitar una cita <ArrowUpRight size={19} /></a>
-          <a className="boton-secundario" href={whatsappUrl} target={numero ? '_blank' : undefined} rel={numero ? 'noopener noreferrer' : undefined}><MessageCircle size={18} /> {numero ? 'Escríbenos por WhatsApp' : 'Solicita información'}</a>
+    <section id="contacto" aria-labelledby="titulo-contacto" className="relative scroll-mt-16 overflow-hidden bg-[radial-gradient(ellipse_at_50%_140%,#8b374d,transparent_61%)] bg-[#3a1725] py-24 text-center text-[#f0e4d2] md:py-32">
+      <div className="pointer-events-none absolute -inset-x-[15%] -top-1/2 bottom-0 rounded-[50%] border border-[#edc58c]/10" aria-hidden="true" />
+      <span className="pointer-events-none absolute -left-5 -top-52 hidden font-serif text-[480px] leading-none text-[#d3ac6f]/[.055] lg:block" aria-hidden="true">☾</span>
+      <div className={`${CONTENEDOR} relative z-10`}>
+        <div className="mb-7 flex items-center justify-center gap-3 text-[11px] tracking-[0.2em] text-[#d5ab72]"><Moon size={27} strokeWidth={1.1} /><span>LO QUE BUSCAS PUEDE COMENZAR CON UNA CONVERSACIÓN</span></div>
+        <h2 id="titulo-contacto" data-revelar className={`${DISPLAY} mx-auto mb-7 max-w-[950px] text-[clamp(4rem,8vw,8.5rem)] font-medium leading-[.86] tracking-[-.05em]`}>Hay encuentros que <em className="font-normal text-[#efc695]">iluminan el camino.</em></h2>
+        <p data-revelar className="mx-auto max-w-[550px] text-[13px] leading-7 text-[#e3c7c8]">Regálate un momento para mirar hacia dentro. Tu próxima lectura comienza aquí.</p>
+        <div data-revelar className="mx-auto mt-9 flex max-w-[700px] flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
+          <a href="#reservar" className={`${BOTON_PRIMARIO} bg-[#ebc796] text-[#2b1620] hover:bg-[#f5dcb6]`}><CalendarDays size={19} /> Solicitar una cita <ArrowUpRight size={19} /></a>
+          <a href={whatsappUrl} target={numero ? '_blank' : undefined} rel={numero ? 'noopener noreferrer' : undefined} className={BOTON_SECUNDARIO}><MessageCircle size={19} />{numero ? 'Escríbenos por WhatsApp' : 'Solicita información'}</a>
         </div>
-        {negocio.instagram && <a className="contacto-instagram" href={negocio.instagram} target="_blank" rel="noopener noreferrer"><Instagram size={18} /> Síguenos en Instagram <ArrowUpRight size={14} /></a>}
+        {negocio.instagram && <a className="mt-8 inline-flex items-center gap-2 text-xs text-[#e9c5ab] hover:text-[#f5dcb6]" href={negocio.instagram} target="_blank" rel="noopener noreferrer"><Instagram size={18} /> Síguenos en Instagram <ArrowUpRight size={14} /></a>}
       </div>
-      <span className="contacto-luna" aria-hidden="true">☾</span>
     </section>
   );
 }

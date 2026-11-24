@@ -4,8 +4,8 @@ export const negocio = {
   nombre: "Casa Astral", // Nombre provisional del mockup
   marca: "TAROT · CÓRDOBA",
   ciudad: "Córdoba, Veracruz",
-  whatsapp: import.meta.env.VITE_WHATSAPP_NUMERO || "",
-  instagram: import.meta.env.VITE_INSTAGRAM_URL || "",
+  whatsapp: "522711872907",
+  instagram: "https://www.instagram.com/manolo_covarrubias/",
 
   mapsUrl: "https://maps.app.goo.gl/1e4MA6ZsVcQYHSEk9",
   mapsEmbedUrl:
